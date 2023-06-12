@@ -1,0 +1,79 @@
+<div class="card" style="padding: 30px;">
+  <div class="row">
+    <div class="col-lg">
+      <div style="font-size: 20px;">
+        Consultar Temperatura
+        <hr />
+      </div>
+      <div class="card" style="padding: 20px;  margin: 5px; width: 100%;">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-6">
+              <button
+                class="btn btn-info"
+                id="btnConsulta"
+                style="display:inline"
+              ><i class="bi bi-search"></i> Consultar</button>
+              <button type="button" class="btn btn-secondary" id="btnLimpar"><i
+                  class="bi bi-eraser"
+                ></i>
+                Limpar</button>
+            </div>
+            <div class="col-3">
+            </div>
+            <div class="col">
+
+            </div>
+          </div>
+          <div class="row" style="display: none;" id="card_tabela">
+            <table
+              style="width: 100%;"
+              id="tabela_consulta"
+              data-toggle="table"
+              data-click-to-select="true"
+              data-data-type="text"
+              data-locale="pt-BR"
+              data-toolbar="#remove"
+              data-pagination="true"
+              data-row-style="rowStyle"
+              data-total-field="count"
+              class="table-hover table-striped"
+            >
+              <thead>
+                <tr>
+                </tr>
+              </thead>
+
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{! <div class="row">
+    <div class="col-lg" style="display: none;" id="card_tabela">
+      <div class="card" style="padding: 20px;  margin: 5px; width: 100%;">
+
+        <table
+          style="width: 100%;"
+          id="tabela_consulta"
+          data-toggle="table"
+          data-click-to-select="true"
+          data-data-type="text"
+          data-locale="pt-BR"
+          data-toolbar="#remove"
+          data-pagination="true"
+          data-row-style="rowStyle"
+          data-total-field="count"
+          class="table-hover table-striped"
+        >
+          <thead>
+            <tr>
+            </tr>
+          </thead>
+
+        </table>
+      </div>
+    </div>
+  </div> }}
+</div>
