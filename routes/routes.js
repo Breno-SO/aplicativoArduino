@@ -12,6 +12,8 @@ router.get("/home/", pageController.index);
 //Rota usada para consultar temperatura
 router.get("/consulta/", consultasController.consultar);
 
+router.get("/alertar/", consultasController.alertar);
+
 router.get("/alerta/", pageController.alert);
 
 module.exports = router;

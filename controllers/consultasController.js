@@ -8,12 +8,11 @@ const nodemailer = require("nodemailer");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 async function consultar(req, res) {
   config = {
     method: "get",
     maxBodyLength: Infinity,
-    url: "http://localhost:8089/temp/",
+    url: "http://127.0.0.1:8080/temperatura",
     headers: {},
   };
   let response = await axios.request(config);
@@ -21,6 +20,7 @@ async function consultar(req, res) {
   axios
     .request(config)
     .then((response) => {
+      // console.log(response.data);
       if (response.status == 200) {
         let data = dayjs().format("DD/MM/YYYY HH:mm:ss");
 
@@ -42,7 +42,7 @@ async function consultar(req, res) {
     });
 }
 
-alertar();
+// alertar();
 async function alertar() {
   var nodemailer = require("nodemailer");
 
@@ -69,4 +69,4 @@ async function alertar() {
     }
   });
 }
-module.exports = { consultar };
+module.exports = { consultar, alertar };
