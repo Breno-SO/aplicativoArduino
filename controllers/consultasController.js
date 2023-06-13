@@ -9,6 +9,7 @@ const nodemailer = require("nodemailer");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 async function consultar(req, res) {
+  let dados;
   config = {
     method: "get",
     maxBodyLength: Infinity,
@@ -23,12 +24,26 @@ async function consultar(req, res) {
       // console.log(response.data);
       if (response.status == 200) {
         let data = dayjs().format("DD/MM/YYYY HH:mm:ss");
-
-        let dados = {
-          temperatura: response.data.temperatura,
-          estado: "ok",
-          data: data,
-        };
+        let temp = response.data.temperatura;
+        if (temp > 8) {
+          dados = {
+            temperatura: response.data.temperatura,
+            estado: "Temperatura alta",
+            data: data,
+          };
+        } else if (temp < 2) {
+          dados = {
+            temperatura: response.data.temperatura,
+            estado: "Temperatura baixa",
+            data: data,
+          };
+        } else {
+          dados = {
+            temperatura: response.data.temperatura,
+            estado: "Temperatura ideal",
+            data: data,
+          };
+        }
         res.status(200);
         res.send(dados);
       } else {
@@ -412,8 +427,7 @@ let data = dayjs().format("DD/MM/YYYY HH:mm:ss");
                                     <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                       <tbody>
                                         <tr>
-                                          <h2 align="center"> {{temperatura}}°C</h2>
-                                          <p align="center">A temperatura acima foi detectada as:${data}</p>
+                                          <p align="center">A temperatura anormal foi detectada as:${data}</p>
                                         </tr>
                                       </tbody>
                                     </table>
