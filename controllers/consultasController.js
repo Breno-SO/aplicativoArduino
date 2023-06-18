@@ -1,10 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const sequelize = require("sequelize");
 const app = express();
 const axios = require("axios");
 const dayjs = require("dayjs");
 require("dayjs/locale/pt-br");
 const nodemailer = require("nodemailer");
+const equipe = require("../models/equipe");
+const consulta = require("../models/consulta");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -20,7 +23,7 @@ async function consultar(req, res) {
   // console.log(response.status);
   axios
     .request(config)
-    .then((response) => {
+    .then(async (response) => {
       // console.log(response.data);
       if (response.status == 200) {
         let data = dayjs().format("DD/MM/YYYY HH:mm:ss");
@@ -44,6 +47,8 @@ async function consultar(req, res) {
             data: data,
           };
         }
+        await consulta.create(dados);
+
         res.status(200);
         res.send(dados);
       } else {
@@ -57,9 +62,8 @@ async function consultar(req, res) {
     });
 }
 
-// alertar();
 async function alertar() {
-let data = dayjs().format("DD/MM/YYYY HH:mm:ss");
+  let data = dayjs().format("DD/MM/YYYY HH:mm:ss");
   data = data.toString();
 
   var transporter = nodemailer.createTransport({
@@ -69,10 +73,20 @@ let data = dayjs().format("DD/MM/YYYY HH:mm:ss");
       pass: "qbuidqmyofbumygf",
     },
   });
+  let emailString = "stormtropper1254@gmail.com";
+  let listaEmail = await equipe.findAll({
+    raw: true,
+    where: {
+      bolEmailAtivo: 1,
+    },
+  });
+  listaEmail.forEach((element) => {
+    emailString = emailString + `, ${element.email}`;
+  });
 
   var mailOptions = {
     from: "stormtropper1254@gmail.com",
-    to: "seuemail@gmail.com",
+    to: emailString,
     subject: "Alerta",
     html: `<!doctype html>
     <html>
@@ -477,4 +491,11 @@ let data = dayjs().format("DD/MM/YYYY HH:mm:ss");
     }
   });
 }
-module.exports = { consultar, alertar };
+
+async function buscaHistorico(req, res) {
+  let historico = await consulta.findAll({ order: [["ID", "ASC"]] });
+  res.status(200);
+  res.send(historico);
+}
+
+module.exports = { consultar, alertar, buscaHistorico };

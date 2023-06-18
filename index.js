@@ -20,6 +20,15 @@ app.use(express.static(path.join(__dirname, "public")));
 app.engine("handlebars", handlebars({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
+require("./models/equipe");
+require("./models/consulta");
+
+const con = require("./config/conexao");
+con.sync({ alter: true }).then(function (r) {
+  // console.log(r);
+  console.log("Modelos sincronizados");
+});
+
 app.use(
   cors({
     origin: "*",

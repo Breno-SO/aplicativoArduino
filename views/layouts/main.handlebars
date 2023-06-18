@@ -40,7 +40,7 @@
   </head>
   <body>
     <!-- Image and text -->
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">
         <img
           src="/img/logo.png"
@@ -51,6 +51,20 @@
         />
         Sistema de monitoramento de vacinas
       </a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/home">Home </a>
+          </li>
+          <li class="nav-item" style="border-left: 1px solid black;">
+            <a class="nav-link" href="/historico">Histórico </a>
+          </li>
+          <li class="nav-item" style="border-left: 1px solid black;">
+            <a class="nav-link" href="/equipe">Cadastro de administradores
+            </a>
+          </li>
+        </ul>
+      </div>
     </nav>
     <div class="container">
       {{{body}}}

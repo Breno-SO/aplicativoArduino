@@ -10,13 +10,11 @@ async function index(req, res) {
 }
 
 async function loadPage(req, res) {
-  res.render("page/alertpage");
+  res.render("page/emailpage");
 }
 
-async function alert(req, res) {
-  loadPage(req, res);
-  res.status(200);
-  res.send("OK");
+async function historico(req, res) {
+  res.render("page/historypage");
 }
 
-module.exports = { index, alert };
+module.exports = { index, loadPage, historico };
